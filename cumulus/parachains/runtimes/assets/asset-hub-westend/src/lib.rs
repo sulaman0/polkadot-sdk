@@ -1360,6 +1360,7 @@ impl_runtime_apis! {
 			let mut acceptable_assets = vec![AssetId(native_token.clone())];
 			// We also accept all assets in a pool with the native token.
 			acceptable_assets.extend(
+<<<<<<< HEAD
 				pallet_asset_conversion::Pools::<Runtime>::iter_keys().filter_map(
 					|(asset_1, asset_2)| {
 						if asset_1 == native_token_v3 {
@@ -1371,11 +1372,16 @@ impl_runtime_apis! {
 						}
 					},
 				),
+=======
+				assets_common::PoolAdapter::<Runtime>::get_assets_in_pool_with(native_token)
+				.map_err(|()| XcmPaymentApiError::VersionedConversionFailed)?
+>>>>>>> 139691b (Fix `XcmPaymentApi::query_weight_to_asset_fee` version conversion (#6459))
 			);
 			PolkadotXcm::query_acceptable_payment_assets(xcm_version, acceptable_assets)
 		}
 
 		fn query_weight_to_asset_fee(weight: Weight, asset: VersionedAssetId) -> Result<u128, XcmPaymentApiError> {
+<<<<<<< HEAD
 			match asset.try_as::<AssetId>() {
 				Ok(asset_id) if asset_id.0 == xcm_config::WestendLocation::get() => {
 					// for native token
@@ -1384,6 +1390,29 @@ impl_runtime_apis! {
 				Ok(asset_id) => {
 					log::trace!(target: "xcm::xcm_runtime_apis", "query_weight_to_asset_fee - unhandled asset_id: {asset_id:?}!");
 					Err(XcmPaymentApiError::AssetNotFound)
+=======
+			let native_asset = xcm_config::WestendLocation::get();
+			let fee_in_native = WeightToFee::weight_to_fee(&weight);
+			let latest_asset_id: Result<AssetId, ()> = asset.clone().try_into();
+			match latest_asset_id {
+				Ok(asset_id) if asset_id.0 == native_asset => {
+					// for native asset
+					Ok(fee_in_native)
+				},
+				Ok(asset_id) => {
+					// Try to get current price of `asset_id` in `native_asset`.
+					if let Ok(Some(swapped_in_native)) = assets_common::PoolAdapter::<Runtime>::quote_price_tokens_for_exact_tokens(
+							asset_id.0.clone(),
+							native_asset,
+							fee_in_native,
+							true, // We include the fee.
+						) {
+						Ok(swapped_in_native)
+					} else {
+						log::trace!(target: "xcm::xcm_runtime_apis", "query_weight_to_asset_fee - unhandled asset_id: {asset_id:?}!");
+						Err(XcmPaymentApiError::AssetNotFound)
+					}
+>>>>>>> 139691b (Fix `XcmPaymentApi::query_weight_to_asset_fee` version conversion (#6459))
 				},
 				Err(_) => {
 					log::trace!(target: "xcm::xcm_runtime_apis", "query_weight_to_asset_fee - failed to convert asset: {asset:?}!");
