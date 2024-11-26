@@ -118,8 +118,6 @@ where
 	}
 }
 
-type PolledIterator<PoolApi> = Pin<Box<dyn Future<Output = ReadyIteratorFor<PoolApi>> + Send>>;
-
 /// The fork-aware transaction pool.
 ///
 /// It keeps track of every fork and provides the set of transactions that is valid for every fork.
