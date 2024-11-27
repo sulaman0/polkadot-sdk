@@ -63,7 +63,8 @@ sc-chain-spec = { path = "../chain-spec" }
 sc-client-api = { path = "../api" }
 sp-api = { path = "../../primitives/api" }
 sc-client-db = { path = "../db", default-features = false }
-codec = { package = "parity-scale-codec", version = "3.6.1" }
+#codec = { package = "parity-scale-codec", version = "3.6.1" }
+codec = { git = "https://github.com/paritytech/parity-scale-codec.git", tag = "parity-scale-codec-v3.6.1", package = "parity-scale-codec" }
 sc-executor = { path = "../executor" }
 sc-transaction-pool = { path = "../transaction-pool" }
 sp-transaction-pool = { path = "../../primitives/transaction-pool" }

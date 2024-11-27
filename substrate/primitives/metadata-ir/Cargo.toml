@@ -16,9 +16,11 @@ workspace = true
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
-codec = { package = "parity-scale-codec", version = "3.6.1", default-features = false }
+scale-info = { git = "https://github.com/paritytech/scale-info.git", tag = "v2.10.0", default-features = false, features = ["derive"] }
+codec = { git = "https://github.com/paritytech/parity-scale-codec.git", tag = "parity-scale-codec-v3.6.4", package = "parity-scale-codec", default-features = false }
+
+#codec = { package = "parity-scale-codec", version = "3.6.1", default-features = false }
 frame-metadata = { version = "16.0.0", default-features = false, features = ["current"] }
-scale-info = { version = "2.10.0", default-features = false, features = ["derive"] }
 sp-std = { path = "../std", default-features = false }
 
 [features]

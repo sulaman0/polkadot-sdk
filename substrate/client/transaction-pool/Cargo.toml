@@ -17,7 +17,8 @@ targets = ["x86_64-unknown-linux-gnu"]
 
 [dependencies]
 async-trait = "0.1.74"
-codec = { package = "parity-scale-codec", version = "3.6.1" }
+#codec = { package = "parity-scale-codec", version = "3.6.1" }
+codec = { git = "https://github.com/paritytech/parity-scale-codec.git", tag = "parity-scale-codec-v3.6.1", package = "parity-scale-codec" }
 futures = "0.3.21"
 futures-timer = "3.0.2"
 linked-hash-map = "0.5.4"

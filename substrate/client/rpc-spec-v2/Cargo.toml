@@ -30,7 +30,8 @@ sp-version = { path = "../../primitives/version" }
 sc-client-api = { path = "../api" }
 sc-utils = { path = "../utils" }
 sc-rpc = { path = "../rpc" }
-codec = { package = "parity-scale-codec", version = "3.6.1" }
+#codec = { package = "parity-scale-codec", version = "3.6.1" }
+codec = { git = "https://github.com/paritytech/parity-scale-codec.git", tag = "parity-scale-codec-v3.6.1", package = "parity-scale-codec" }
 thiserror = { workspace = true }
 serde = { workspace = true, default-features = true }
 hex = "0.4"

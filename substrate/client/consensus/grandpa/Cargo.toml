@@ -25,7 +25,8 @@ finality-grandpa = { version = "0.16.2", features = ["derive-codec"] }
 futures = "0.3.21"
 futures-timer = "3.0.1"
 log = { workspace = true, default-features = true }
-parity-scale-codec = { version = "3.6.1", features = ["derive"] }
+#parity-scale-codec = { version = "3.6.1", features = ["derive"] }
+parity-scale-codec = { git = "https://github.com/paritytech/parity-scale-codec.git", tag = "parity-scale-codec-v3.6.1", package = "parity-scale-codec", features = ["derive"] }
 parking_lot = "0.12.1"
 rand = "0.8.5"
 serde_json = { workspace = true, default-features = true }
